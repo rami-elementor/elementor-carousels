@@ -1,0 +1,83 @@
+.carousel {
+	anchor-name: var(--carousel-name);
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: var(--slide-width, 200px);
+	gap: var(--slides-gap, 10px);
+
+	scroll-snap-type: inline mandatory;
+	scroll-snap-stop: always;
+	scroll-behavior: smooth;
+	scroll-padding: 0;
+	scrollbar-width: none;
+
+	overflow-x: auto;
+	overscroll-behavior-inline: contain;
+
+	container-type: inline-size scroll-state;
+
+	list-style-type: none;
+	counter-reset: item;
+	padding: 0;
+	margin: 0;
+
+	>* {
+		scroll-snap-align: center;
+		/* display: inline-grid; */
+
+		img {
+			display: block;
+			width: 100%;
+			aspect-ratio: var(--ratio-portrait, 3/4);
+			object-fit: cover;
+		}
+	}
+
+	&.scroll-buttons {
+		&::scroll-button(*) {
+			position-anchor: var(--carousel-name);
+
+			position: fixed;
+			background-color: transparent;
+			border: none;
+		}
+
+		&::scroll-button(inline-start) {
+			position-area: var(--scroll-button-start-position-inline, inline-start) var(--scroll-button-start-position-block, center);
+		}
+
+		&::scroll-button(inline-end) {
+			position-area: var(--scroll-button-end-position-inline, inline-end) var(--scroll-button-end-position-block, center);
+		}
+	}
+
+	&.scroll-markers {
+		scroll-marker-group: after;
+
+		&::scroll-marker-group {
+			position-anchor: var(--carousel-name);
+
+			position: fixed;
+			position-area: block-end;
+			margin-block-start: 10px;
+
+			display: grid;
+			grid-auto-columns: 20px;
+			grid-auto-flow: column;
+			gap: 20px;
+		}
+
+		&>*::scroll-marker {
+			content: ' ';
+			aspect-ratio: 1;
+			border-radius: 50%;
+			border: 1px solid black;
+
+			&:target-current {
+				color: red;
+				background-color: var(--accent, red);
+				border: 1px solid red;
+			}
+		}
+	}
+}
