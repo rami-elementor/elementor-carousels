@@ -40,6 +40,7 @@
 			position: fixed;
 			background-color: transparent;
 			border: none;
+			cursor: pointer;
 		}
 
 		&::scroll-button(inline-start) {
@@ -62,6 +63,7 @@
 			margin: var(--scroll-marker-group-spacing, 10px);
 
 			display: grid;
+			align-items: center;
 			grid-auto-flow: column;
 			grid-auto-columns: var(--marker-width, 8px);
 			gap: var(--markers-gap, 10px);
@@ -73,11 +75,7 @@
 			height: var(--marker-height, 8px);
 			border-radius: 50%;
 			border: 1px solid black;
-
-			&:is(:hover, :focus-visible) {
-				border-color: var(--link);
-				transform: scale(1.05);
-			}
+			cursor: pointer;
 
 			&:target-current {
 				color: red;

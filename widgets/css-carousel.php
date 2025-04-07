@@ -713,6 +713,43 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'scroll_marker_style_selected_heading',
+			[
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'label' => esc_html__( 'Selected Marker', 'elementor-carousels' ),
+				'separator' => 'before',
+				'condition' => [
+					'scroll_markers' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'scroll_marker_selected_background_color',
+			[
+				'label' => esc_html__( 'Background color', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-markers >*::scroll-marker:target-current' => 'background-color: {{VALUE}};',
+				],
+				'condition' => [
+					'scroll_markers' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'scroll_marker_selected_border',
+				'selector' => '{{WRAPPER}} .carousel.scroll-markers >*::scroll-marker:target-current',
+				'condition' => [
+					'scroll_markers' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 	}
