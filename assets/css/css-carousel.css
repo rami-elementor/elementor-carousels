@@ -1,9 +1,9 @@
 .carousel {
-	anchor-name: var(--carousel-name);
+	anchor-name: var(--carousel-anchor-name);
 	display: grid;
 	grid-auto-flow: column;
-	grid-auto-columns: var(--slide-width, 200px);
-	gap: var(--slides-gap, 10px);
+	grid-auto-columns: var(--slide-width);
+	gap: var(--slides-gap, 0);
 
 	scroll-snap-type: inline mandatory;
 	scroll-snap-stop: always;
@@ -35,7 +35,7 @@
 
 	&.scroll-buttons {
 		&::scroll-button(*) {
-			position-anchor: var(--carousel-name);
+			position-anchor: var(--carousel-anchor-name);
 
 			position: fixed;
 			background-color: transparent;
@@ -55,28 +55,44 @@
 		scroll-marker-group: after;
 
 		&::scroll-marker-group {
-			position-anchor: var(--carousel-name);
+			position-anchor: var(--carousel-anchor-name);
 
 			position: fixed;
-			position-area: block-end;
-			margin-block-start: 10px;
+			position-area: var(--scroll-marker-group-position, block-end);
+			margin: var(--scroll-marker-group-spacing, 10px);
 
 			display: grid;
-			grid-auto-columns: 20px;
 			grid-auto-flow: column;
-			gap: 20px;
+			grid-auto-columns: var(--marker-width, 8px);
+			gap: var(--markers-gap, 10px);
 		}
 
 		&>*::scroll-marker {
 			content: ' ';
-			aspect-ratio: 1;
+			width: var(--marker-width, 8px);
+			height: var(--marker-height, 8px);
 			border-radius: 50%;
 			border: 1px solid black;
+
+			&:is(:hover, :focus-visible) {
+				border-color: var(--link);
+				transform: scale(1.05);
+			}
 
 			&:target-current {
 				color: red;
 				background-color: var(--accent, red);
 				border: 1px solid red;
+			}
+		}
+
+		&.scroll-markers-image {
+
+			&>*::scroll-marker {
+				background-image: var(--marker-img);
+				background-size: cover;
+				background-position: center center;
+				background-repeat: no-repeat;
 			}
 		}
 	}
