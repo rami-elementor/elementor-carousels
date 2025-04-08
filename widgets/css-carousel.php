@@ -110,7 +110,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'label' => esc_html__( 'Image', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
 				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+					'url' => plugins_url( '../assets/img/arrow-left.svg', __FILE__ ),
 				],
 				'dynamic' => [
 					'active' => true,
@@ -160,7 +160,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'label' => esc_html__( 'Image', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::MEDIA,
 				'default' => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+					'url' => plugins_url( '../assets/img/arrow-right.svg', __FILE__ ),
 				],
 				'dynamic' => [
 					'active' => true,
@@ -243,6 +243,36 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .carousel' => '--slide-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'slide_height',
+			[
+				'label' => esc_html__( 'Slide height', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
+				'default' => [
+					'size' => 200,
+					'unit' => 'px',
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+					],
+					'em' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'rem' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .carousel' => '--slide-height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -803,7 +833,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'label' => esc_html__( 'Background color', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-markers >*::scroll-marker:target-current' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .carousel.scroll-markers >*::scroll-marker:target-current' => '--scroll-marker-current-bg: {{VALUE}};',
 				],
 				'condition' => [
 					'scroll_markers' => 'yes',

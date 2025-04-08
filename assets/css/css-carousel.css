@@ -24,9 +24,10 @@
 
 		img {
 			display: block;
-			width: 100%;
-			aspect-ratio: var(--ratio-portrait, 3/4);
+			width: var(--slide-width);
+			height: var(--slide-height);
 			object-fit: cover;
+			object-position: center center;
 		}
 	}
 
@@ -86,12 +87,10 @@
 			border-radius: 50%;
 			border: 1px solid black;
 			cursor: pointer;
+		}
 
-			&:target-current {
-				color: red;
-				background-color: var(--accent, red);
-				border: 1px solid red;
-			}
+		&>*::scroll-marker:target-current {
+			background-color: var(--scroll-marker-current-bg, black);
 		}
 
 		&.scroll-markers-image {
