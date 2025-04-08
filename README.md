@@ -21,22 +21,18 @@ Want to play around with Elementor and this demo Carousel without installing any
 
 1. Install and activate the plugin through your WordPress dashboard.
 2. Edit a page with Elementor.
-3. Drag in the "Carousel CSS Demo" widget (or however your widget is named).
+3. Drag in the "CSS Carousel" widget.
 4. Customize as needed.
 
 ## Requirements
 
 - [Elementor plugin](https://elemn.to/css-carousels-elementor-wp-repo) installed and activated.
-- Chrome 135 or higher, for full feature support.
+- Chrome 135 or higher, for full feature support. Older Chrome version need to visit `chrome://flags` and enable **"Experimental Web Platform features"**.
 
-## ⚠️ Important Notes
+## Important Notes
 
-- To view the carousel properly, you may need to enable experimental web platform features in Chrome by visiting `chrome://flags` and turning on **"Experimental Web Platform features"**.
-- This plugin is a **demo** and does **not** include all available carousel features.
-- It does **not** handle loading a polyfill for unsupported or older browsers. For full cross-browser support, refer to the official documentation.
-
----
-
-This plugin is meant for demonstration and educational purposes. Furthermore it was created for the sole purpose of a demo for [GoogleIO 2025](https://io.google/2025/) and is not actively maintained.
+- This plugin was created for the sole purpose of a demo for [GoogleIO 2025](https://io.google/2025/) and is not actively maintained.
+- The plugin is a **demo** and does **not** include all available carousel features.
+- The plugin does **not** handle loading a polyfill for unsupported or older browsers.
 
 Enjoy experimenting with the latest in CSS!
