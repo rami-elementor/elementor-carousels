@@ -75,19 +75,62 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'previous_button',
+			[
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'label' => esc_html__( 'Previous button', 'elementor-carousels' ),
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
 			'previous_button_label',
 			[
-				'label' => esc_html__( 'Previous button label', 'elementor-carousels' ),
+				'label' => esc_html__( 'Label', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'default' => esc_html__( 'Previous', 'elementor-carousels' ),
+				'label_block' => true,
 				'dynamic' => [
 					'active' => true,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-start-label: "{{VALUE}}";',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
 				],
+			]
+		);
+
+		$this->add_control(
+			'previous_button_image',
+			[
+				'label' => esc_html__( 'Image', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'dynamic' => [
+					'active' => true,
+				],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-start)' => 'content: "{{VALUE}}";',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-start-image: url("{{URL}}");',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'next_button',
+			[
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'label' => esc_html__( 'Next button', 'elementor-carousels' ),
+				'condition' => [
+					'scroll_buttons' => 'yes',
 				],
 			]
 		);
@@ -95,17 +138,38 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'next_button_label',
 			[
-				'label' => esc_html__( 'Next button label', 'elementor-carousels' ),
+				'label' => esc_html__( 'Label', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::TEXT,
+				'label_block' => true,
 				'default' => esc_html__( 'Next', 'elementor-carousels' ),
 				'dynamic' => [
 					'active' => true,
 				],
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-label: "{{VALUE}}";',
+				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
 				],
+			]
+		);
+
+		$this->add_control(
+			'next_button_image',
+			[
+				'label' => esc_html__( 'Image', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'dynamic' => [
+					'active' => true,
+				],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-end)' => 'content: "{{VALUE}}";',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-image: url("{{URL}}");',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
 				],
 			]
 		);
@@ -224,7 +288,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			'scroll_button_start_position_heading',
 			[
 				'type' => \Elementor\Controls_Manager::HEADING,
-				'label' => esc_html__( 'Previous button position', 'elementor-carousels' ),
+				'label' => esc_html__( 'Previous button', 'elementor-carousels' ),
 				'condition' => [
 					'scroll_buttons' => 'yes',
 				],
@@ -234,7 +298,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'scroll_button_start_position_inline',
 			[
-				'label' => esc_html__( 'Horizontal', 'elementor-carousels' ),
+				'label' => esc_html__( 'Horizontal position', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::CHOOSE,
 				'options' => [
 					'start' => [
@@ -263,7 +327,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'scroll_button_start_position_block',
 			[
-				'label' => esc_html__( 'Vertical', 'elementor-carousels' ),
+				'label' => esc_html__( 'Vertical position', 'elementor-carousels' ),
 				'type' => \Elementor\Controls_Manager::CHOOSE,
 				'options' => [
 					'start' => [
@@ -289,40 +353,14 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'scroll_button_end_position_heading',
-			[
-				'type' => \Elementor\Controls_Manager::HEADING,
-				'label' => esc_html__( 'Next button position', 'elementor-carousels' ),
-				'separator' => 'before',
-				'condition' => [
-					'scroll_buttons' => 'yes',
-				],
-			]
-		);
-
 		$this->add_responsive_control(
-			'scroll_button_end_position_inline',
+			'scroll_button_start_width',
 			[
-				'label' => esc_html__( 'Horizontal', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::CHOOSE,
-				'options' => [
-					'start' => [
-						'title' => esc_html__( 'Start', 'elementor-carousels' ),
-						'icon' => 'eicon-v-align-top',
-					],
-					'center' => [
-						'title' => esc_html__( 'Center', 'elementor-carousels' ),
-						'icon' => 'eicon-v-align-middle',
-					],
-					'end' => [
-						'title' => esc_html__( 'End', 'elementor-carousels' ),
-						'icon' => 'eicon-v-align-bottom',
-					],
-				],
-				'default' => 'center',
+				'label' => esc_html__( 'Width', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-position-inline: {{VALUE}};',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-start-width: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -331,27 +369,13 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'scroll_button_end_position_block',
+			'scroll_button_start_height',
 			[
-				'label' => esc_html__( 'Vertical', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::CHOOSE,
-				'options' => [
-					'start' => [
-						'title' => esc_html__( 'Start', 'elementor-carousels' ),
-						'icon' => 'eicon-h-align-left',
-					],
-					'center' => [
-						'title' => esc_html__( 'Center', 'elementor-carousels' ),
-						'icon' => 'eicon-h-align-center',
-					],
-					'end' => [
-						'title' => esc_html__( 'End', 'elementor-carousels' ),
-						'icon' => 'eicon-h-align-right',
-					],
-				],
-				'default' => 'end',
+				'label' => esc_html__( 'Height', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-position-block: {{VALUE}};',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-start-height: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -359,25 +383,14 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'scroll_button_start_style_heading',
+		$this->add_responsive_control(
+			'scroll_button_start_spacing',
 			[
-				'type' => \Elementor\Controls_Manager::HEADING,
-				'label' => esc_html__( 'Previous button style', 'elementor-carousels' ),
-				'separator' => 'before',
-				'condition' => [
-					'scroll_buttons' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'scroll_button_start_color',
-			[
-				'label' => esc_html__( 'Color', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
+				'label' => esc_html__( 'Spacing', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-start)' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-start-spacing: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -411,26 +424,11 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'scroll_button_start_padding',
-			[
-				'label' => esc_html__( 'Padding', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-start)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
-					'scroll_buttons' => 'yes',
-				],
-			]
-		);
-
 		$this->add_control(
-			'scroll_button_end_style_heading',
+			'scroll_button_end_position_heading',
 			[
 				'type' => \Elementor\Controls_Manager::HEADING,
-				'label' => esc_html__( 'Next button style', 'elementor-carousels' ),
+				'label' => esc_html__( 'Next button', 'elementor-carousels' ),
 				'separator' => 'before',
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -438,13 +436,102 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'scroll_button_end_color',
+		$this->add_responsive_control(
+			'scroll_button_end_position_inline',
 			[
-				'label' => esc_html__( 'Color', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
+				'label' => esc_html__( 'Horizontal position', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'start' => [
+						'title' => esc_html__( 'Start', 'elementor-carousels' ),
+						'icon' => 'eicon-v-align-top',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor-carousels' ),
+						'icon' => 'eicon-v-align-middle',
+					],
+					'end' => [
+						'title' => esc_html__( 'End', 'elementor-carousels' ),
+						'icon' => 'eicon-v-align-bottom',
+					],
+				],
+				'default' => 'center',
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-end)' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-position-inline: {{VALUE}};',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'scroll_button_end_position_block',
+			[
+				'label' => esc_html__( 'Vertical position', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'start' => [
+						'title' => esc_html__( 'Start', 'elementor-carousels' ),
+						'icon' => 'eicon-h-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor-carousels' ),
+						'icon' => 'eicon-h-align-center',
+					],
+					'end' => [
+						'title' => esc_html__( 'End', 'elementor-carousels' ),
+						'icon' => 'eicon-h-align-right',
+					],
+				],
+				'default' => 'end',
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-position-block: {{VALUE}};',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'scroll_button_end_width',
+			[
+				'label' => esc_html__( 'Width', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-width: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'scroll_button_end_height',
+			[
+				'label' => esc_html__( 'Height', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-height: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'scroll_buttons' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'scroll_button_end_spacing',
+			[
+				'label' => esc_html__( 'Spacing', 'elementor-carousels' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .carousel.scroll-buttons' => '--scroll-button-end-spacing: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -471,21 +558,6 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-end)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition' => [
-					'scroll_buttons' => 'yes',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'scroll_button_end_padding',
-			[
-				'label' => esc_html__( 'Padding', 'elementor-carousels' ),
-				'type' => \Elementor\Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-buttons::scroll-button(inline-end)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_buttons' => 'yes',
@@ -635,7 +707,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-markers' => '--markers-gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .carousel.scroll-markers' => '--scroll-marker-group-gap: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_markers' => 'yes',
@@ -650,7 +722,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-markers' => '--marker-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .carousel.scroll-markers' => '--scroll-marker-width: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_markers' => 'yes',
@@ -665,7 +737,7 @@ class CSS_Carousel_Widget extends \Elementor\Widget_Base {
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
-					'{{WRAPPER}} .carousel.scroll-markers' => '--marker-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .carousel.scroll-markers' => '--scroll-marker-height: {{SIZE}}{{UNIT}};',
 				],
 				'condition' => [
 					'scroll_markers' => 'yes',
